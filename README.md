@@ -39,13 +39,12 @@ Trabalho de Processo de Software e POO, projeto de gerenciamento de estoque dese
 - Importante - A equipe deve utilizar um método ágil para acompanhamento, distribuição das atividades e desenvolvimento das funcionalidades. O método utilizado deve conter reuniões de andamento do projeto e um sistema Kanban. A equipe deve criar um repositório que terá todas as informações do projeto e compartilhar com o email do professor.
 
 ### :page_with_curl: Lista de Requisitos - Grupo 02 (Arthur, Gustavo, Théo, Ruan, Pedro)
-Sistema de gerenciamento de estoque:
-
-- Produto;
-- Fornecedor;
-- Estoque;
-- Pedido;
-- Cliente;
+- Sistema de gerenciamento de estoque:
+  - Produto;
+  - Fornecedor;
+  - Estoque;
+  - Pedido;
+  - Cliente;
 
 <div align="center">
 
