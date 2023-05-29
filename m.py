@@ -1,7 +1,5 @@
 import random
 import matplotlib.pyplot as plt
-import time
-
 
 def merge_sort(arr):
     if len(arr) <= 1:
@@ -15,6 +13,7 @@ def merge_sort(arr):
     # Recursivamente divide os vetores laterais
     esquerda = merge_sort(esquerda)
     direita = merge_sort(direita)
+    print(f"Esquerda: {esquerda}"f" | Direita: {direita}")
     
     # Junta novamente as duas metades laterais
     return merge(esquerda, direita)
@@ -33,22 +32,25 @@ def merge(esquerda, direita):
         else:
             resultado.append(direita[j])
             j += 1
-    
     # Anexa os elementos restantes
     resultado.extend(esquerda[i:])
     resultado.extend(direita[j:])
+    print(f"Deu merge -> {resultado} \n")
 
     return resultado
 
 def main():
     vetor = random.sample(population=range(1,11), k=10)
-    
+    print(f"Vetor inicial: {vetor} \n")
+    new_vetor = merge_sort(vetor)
     fig, ax = plt.subplots()
-    ax.bar(range(len(merge_sort(vetor))), merge_sort(vetor))
+    #ax.bar(range(len(vetor)), vetor)
     
+    ax.bar(range(len(new_vetor)), new_vetor)
     plt.ylabel("Número")
     plt.xlabel("Posição")
     plt.show()
+    
 
 if __name__ == "__main__":
     main()
