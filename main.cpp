@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 class Item {
@@ -39,32 +40,32 @@ public:
 
     int IsNotEmpty() {
         if (!arr.size()) {
-            cout << ">> Registre algum produto primeiro!\n ";
-            return 0;
-        }
-        return 1;
-    }
+            cout << ">> Registre algum produto primeiro. \n ";
+            return 0 ;}
+        return 1 ;}
+    
     void listar() {
         if (IsNotEmpty()) {
-            cout << "===[ Produtos ]===\n";
+            cout << "===[ Produtos ]=== \n";
             for (int i = 0; i != arr.size(); i++)
                 cout << "[" << i + 1 << "]" << arr[i]->getNome() << "\n";
-            cout << "\n";
-
-        }
-    }
+            cout << "\n" ;}}
 
     void apagar(int index) {
         if (IsNotEmpty()) {
-            delete arr[index - 1];
-            arr.erase(arr.begin() + index - 1);
-        }
-    }
+            try {
+                delete arr[index];
+                arr.erase(arr.begin() + index);
+                cout << ">> Produto apagado com sucesso. \n\n" ;}
+            catch (exception& err) {
+                cout << ">> Não foi possível apagar o produto. \n\n" ;}}}
+
 };
+
 // Criação do inventário GLOBAL (Onde será guardado todos os Objs já criados)
 inventario inv;
 
-// Usa o int index pra saber se é pra criar um novo OBJ (Comparando com a quantia de elementos no vetor) ou editar um já existente
+// Usa o int index pra saber se é pra criar um novo OBJ ou editar um já existente
 void createObj(int index) {
     // Essa parte da função será descartada com a implementação do input via Front
     // Usei strings para poder usar o "getline" afim de evitar problemas de buffer
@@ -91,9 +92,10 @@ void createObj(int index) {
     getline(cin, valor);
 
     // New entry
-    if (index == inv.arr.size()) {
+    
+    if (index > inv.arr.size()) {
         try {
-            // Tenta alocar no vetor o novo item
+            // Tenta alocar o novo item no vetor
             inv.arr.push_back(new Item(nome, desc, stoi(quant), fornec, stof(valor)));
             cout << ">> Produto cadastrado com sucesso!.\n\n";
         }
@@ -104,14 +106,12 @@ void createObj(int index) {
 
     // Edit entry
     else {
-        // Index vem com +1 para caso de só ter 1 obj no vetor
-        index -= 1;
         try {
-            inv.arr[index - 1]->setNome(nome);
-            inv.arr[index - 1]->setDesc(desc);
-            inv.arr[index - 1]->setQuant(stoi(quant));
-            inv.arr[index - 1]->setFornec(fornec);
-            inv.arr[index - 1]->setValor(stof(valor));
+            inv.arr[index]->setNome(nome);
+            inv.arr[index]->setDesc(desc);
+            inv.arr[index]->setQuant(stoi(quant));
+            inv.arr[index]->setFornec(fornec);
+            inv.arr[index]->setValor(stof(valor));
         }
         catch (exception& err) {
             cout << ">> Não foi possível a mudança de produto.\n\n";
@@ -123,17 +123,17 @@ int main() {
     string option;
     while (1) {
         cout << R"(
-        ===[ Menu ]===
-        [1] Cadastrar produtos
-        [2] Ver inventário
-        [3] Editar produto
-        [4] Deletar produto
-        [5] Sair
-        >> )";
+===[ Menu ]===
+[1] Cadastrar produtos
+[2] Ver inventário
+[3] Editar produto
+[4] Deletar produto
+[5] Sair
+>> )";
         getline(cin, option);
 
         if (option == "1")
-            createObj(inv.arr.size());
+            createObj(inv.arr.size()+1);
 
         else if (option == "2")
             inv.listar();
@@ -145,11 +145,9 @@ int main() {
                 getline(cin, index);
 
                 if (stoi(index) >= 0 && stoi(index) <= inv.arr.size()) {
-                    createObj(stoi(index) + 1);
-                }
+                    createObj(stoi(index)-1) ;}
                 else {
-                    cout << ">> Produto não encontrado.\n\n";
-                }
+                    cout << ">> Produto não encontrado.\n\n" ;}
             }
         }
 
@@ -160,23 +158,14 @@ int main() {
                 getline(cin, index);
 
                 if (stoi(index) >= 0 && stoi(index) <= inv.arr.size()) {
-                    try {
-                        inv.apagar(stoi(index));
-                        cout << ">> Produto apagado com sucesso!.\n\n";
-                    }
-                    catch (exception& err) {
-                        cout << ">> Não foi possível apagar o produto.\n\n";
-                    }
-                }
+                        inv.apagar(stoi(index)-1) ;}
                 else {
-                    cout << ">> Procuto não encontrado. \n\n";
-                }
+                    cout << ">> Produto não encontrado. \n\n" ;}
             }
         }
 
         else if (option == "5") {
-            break;
-        }
+            break ;}
     }
     return 1;
 }
