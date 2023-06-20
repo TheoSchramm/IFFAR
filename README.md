@@ -1,6 +1,6 @@
 <div align="center">
 
-# :clipboard: [PH] Sistema Estoque
+# :clipboard: Sistema Estoque
 
 </div>
 
@@ -32,19 +32,11 @@ Trabalho de Processo de Software e POO, projeto de gerenciamento de estoque dese
 ### :thought_balloon: Considerações Finais
 - No último slide da apresentação do projeto, a equipe deve apresentar suas considerações quanto às dificuldades encontradas no desenvolvimento do projeto e como elas foram superadas.
 
-### :calendar: Prazo de Apresentação
-- O trabalho deve ser apresentado por TODA a equipe no dia 19/06.
-
-### :chart_with_upwards_trend: Método Ágil de Desenvolvimento
-- Importante - A equipe deve utilizar um método ágil para acompanhamento, distribuição das atividades e desenvolvimento das funcionalidades. O método utilizado deve conter reuniões de andamento do projeto e um sistema Kanban. A equipe deve criar um repositório que terá todas as informações do projeto e compartilhar com o email do professor.
-
 ### :page_with_curl: Lista de Requisitos - Grupo 02 (Arthur, Gustavo, Théo, Ruan, Pedro)
 - Sistema de gerenciamento de estoque:
   - Produto;
   - Fornecedor;
   - Estoque;
-  - Pedido;
-  - Cliente;
 
 <div align="center">
 
