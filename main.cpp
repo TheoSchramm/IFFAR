@@ -1,8 +1,11 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include <vector>
+#include <nlohmann/json.hpp>
 
 using namespace std;
+using json = nlohmann::json;
 
 class Item {
 private:
@@ -33,139 +36,171 @@ public:
     void setValor(float i) { valor = i; };
 };
 
-// O melhor seria um DB ao invés dessa classe
+// A melhor opção seria utilizar uma DB ao invés de um simples vetor
 class inventario {
 public:
     vector<Item*> arr;
 
-    int IsNotEmpty() {
+    // Retorna 1 caso o indice referenciado realmente exista
+    int validIndex(int index) { return index > 0 && index <= arr.size() ;}
+
+    int isEmpty() {
         if (!arr.size()) {
-            cout << ">> Registre algum produto primeiro. \n ";
-            return 0 ;}
-        return 1 ;}
+            cout << ">> Registre algum produto primeiro. \n\n";
+            return 1 ;}
+        return 0 ;}
     
     void listar() {
-        if (IsNotEmpty()) {
-            cout << "===[ Produtos ]=== \n";
-            for (int i = 0; i != arr.size(); i++)
-                cout << "[" << i + 1 << "]" << arr[i]->getNome() << "\n";
-            cout << "\n" ;}}
+        if (!isEmpty()) {
+            cout
+                << "\n===[ " 
+                << setw(15) << left << setfill(' ') << "ID" << " ]===[ "
+                << setw(15) << left << setfill(' ') << "Produto" << " ]===[ "
+                << setw(15) << left << setfill(' ') << "Descricao" << " ]===[ "
+                << setw(15) << left << setfill(' ') << "Quantia" << " ]===[ "
+                << setw(15) << left << setfill(' ') << "Fornecedor" << " ]===[ "
+                << setw(15) << left << setfill(' ') << "Valor" << " ]===" << "\n";
+
+            for (int i = 0; i != arr.size(); i++){
+                    cout 
+                        << "===[ " 
+                        << setw(15) << left << setfill(' ') << i+1 << " ]===[ "
+                        << setw(15) << left << setfill(' ') << arr[i]->getNome() << " ]===[ "
+                        << setw(15) << left << setfill(' ') << arr[i]->getDesc() << " ]===[ "
+                        << setw(15) << left << setfill(' ') << arr[i]->getQuant() << " ]===[ "
+                        << setw(15) << left << setfill(' ') << arr[i]->getFornec() << " ]===[ "
+                        << setw(15) << left << setfill(' ') << arr[i]->getValor() << " ]===";
+            cout << "\n\n" ;}}}
 
     void apagar(int index) {
-        if (IsNotEmpty()) {
+        if (!isEmpty()) {
             try {
                 delete arr[index];
                 arr.erase(arr.begin() + index);
                 cout << ">> Produto apagado com sucesso. \n\n" ;}
             catch (exception& err) {
-                cout << ">> Não foi possível apagar o produto. \n\n" ;}}}
+                cout << ">> Nao foi possivel apagar o produto. \n\n" ;}}}
 
 };
 
-// Criação do inventário GLOBAL (Onde será guardado todos os Objs já criados)
+// Criação do inventário GLOBAL (Onde serão guardado todos os Objs já criados)
 inventario inv;
 
-// Usa o int index pra saber se é pra criar um novo OBJ ou editar um já existente
+// Essa função usa o index pra saber se é pra criar um novo OBJ ou editar um já existente
 void createObj(int index) {
-    // Essa parte da função será descartada com a implementação do input via Front
-    // Usei strings para poder usar o "getline" afim de evitar problemas de buffer
+    // É usado strings afim de evitar problemas com buffer
     string nome;
     string desc;
     string quant;
     string fornec;
     string valor;
 
-    cout << "===[ Cadastro de Produto ]===\n";
+    // DRY
+    string menu_msg = (index > inv.arr.size()) ? "\n===[ Cadastro de Produto ]===\n" : "\n===[ Editor de Produto ]===\n";
+    cout << menu_msg;
+
+    // Todos esses inputs serão descartados com a implementação dos end-points da API
     cout << ">> Insira o nome do produto: ";
     getline(cin, nome);
-
-    cout << ">> Insira a descrição do produto: ";
+    cout << ">> Insira a descricao do produto: ";
     getline(cin, desc);
-
     cout << ">> Insira a quantia do produto: ";
     getline(cin, quant);
-
     cout << ">> Insira o nome do fornecedor do produto: ";
     getline(cin, fornec);
-
     cout << ">> Insira o valor do produto: ";
     getline(cin, valor);
 
-    // New entry
-    
+    // Novo item
     if (index > inv.arr.size()) {
         try {
             // Tenta alocar o novo item no vetor
             inv.arr.push_back(new Item(nome, desc, stoi(quant), fornec, stof(valor)));
-            cout << ">> Produto cadastrado com sucesso!.\n\n";
+            cout << ">> Produto cadastrado com sucesso.\n\n";
         }
         catch (exception& err) {
-            cout << ">> Não foi possível o cadastro do produto.\n\n";
+            cout << ">> Nao foi possivel o cadastro do produto.\n\n";
         }
     }
 
-    // Edit entry
+    // Editar item já existente
     else {
         try {
+            // A implementação e utilização dos Setters torna muito mais fácil do que deletar o objeto já existente na memória e alocar um novo
             inv.arr[index]->setNome(nome);
             inv.arr[index]->setDesc(desc);
             inv.arr[index]->setQuant(stoi(quant));
             inv.arr[index]->setFornec(fornec);
             inv.arr[index]->setValor(stof(valor));
+            cout << ">> Produto editado com sucesso.\n\n";
         }
         catch (exception& err) {
-            cout << ">> Não foi possível a mudança de produto.\n\n";
+            cout << ">> Nao foi possivel editar o produto.\n\n";
         }
     };
+};
+
+// C++ Obj -> JSON Obj
+void print_json() {
+    json jsonData;
+    for (const auto& Item : inv.arr) {
+        json ItemJson;
+        
+        // Repare que se torna necessário o uso de Getters
+        ItemJson["nome"] = Item->getNome();
+        ItemJson["desc"] = Item->getDesc();
+        ItemJson["quant"] = Item->getQuant();
+        ItemJson["fornec"] = Item->getFornec();
+        ItemJson["valor"] = Item->getValor();
+        jsonData.push_back(ItemJson) ;}
+    cout << "\n===[ Representacao do Arquivo JSON ]===\n" << jsonData.dump(4) << "\n\n";
 };
 
 int main() {
     string option;
     while (1) {
-        cout << R"(
-===[ Menu ]===
+        cout << R"(===[ Menu ]===
 [1] Cadastrar produtos
-[2] Ver inventário
+[2] Ver inventario
 [3] Editar produto
 [4] Deletar produto
-[5] Sair
+[5] Encerrar execucao
 >> )";
         getline(cin, option);
 
-        if (option == "1")
-            createObj(inv.arr.size()+1);
+        if (option == "1") { createObj(inv.arr.size() + 1); }
 
-        else if (option == "2")
-            inv.listar();
+        else if (option == "2") { inv.listar(); }
 
         else if (option == "3") {
-            if (inv.IsNotEmpty()) {
+            if (!inv.isEmpty()) {
                 string index;
-                cout << ">> Insira a posição do produto: ";
+                cout << ">> Insira o ID do produto a ser editado: ";
                 getline(cin, index);
 
-                if (stoi(index) >= 0 && stoi(index) <= inv.arr.size()) {
-                    createObj(stoi(index)-1) ;}
+                if (inv.validIndex(stoi(index))) {
+                    createObj(stoi(index) - 1) ;}
                 else {
-                    cout << ">> Produto não encontrado.\n\n" ;}
-            }
+                    cout << ">> Produto nao encontrado.\n\n" ;}}
         }
 
         else if (option == "4") {
-            if (inv.IsNotEmpty()) {
+            if (!inv.isEmpty()) {
                 string index;
-                cout << ">> Insira a posição do produto: ";
+                cout << ">> Insira o ID do produto a ser apagado: ";
                 getline(cin, index);
 
-                if (stoi(index) >= 0 && stoi(index) <= inv.arr.size()) {
-                        inv.apagar(stoi(index)-1) ;}
+                if (inv.validIndex(stoi(index))) {
+                        inv.apagar(stoi(index) - 1) ;}
                 else {
-                    cout << ">> Produto não encontrado. \n\n" ;}
-            }
+                    cout << ">> Produto nao encontrado. \n\n" ;}}
         }
 
-        else if (option == "5") {
-            break ;}
+        else if (option == "5") { break ;}
+
+        else if (option == "6") { print_json() ;}
+
+        else { cout << "\n" ;}
     }
     return 1;
 }
