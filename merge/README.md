@@ -1,8 +1,6 @@
-# __📊 [Clica aqui para abrir o video](https://www.youtube.com/watch?v=ZRPoEKHXTJg)__
-
 # __Merge__
-![](/merge.png?raw=true "Merge")
+![](/merge/merge.png?raw=true)
 # __Merge Sort__
-![](/merge_sort.png?raw=true "Merge_Sort")
+![](/merge/merge_sort.png?raw=true)
 # __Main__
-![](/main.png?raw=true "Main")
+![](/merge/main.png?raw=true)
