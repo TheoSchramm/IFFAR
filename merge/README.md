@@ -1,3 +1,5 @@
+# __Clique [aqui](/merge/slide.pdf) para ver o Slide__
+
 # __Merge__
 ![](/merge/merge.png?raw=true)
 # __Merge Sort__
