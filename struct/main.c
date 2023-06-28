@@ -23,7 +23,7 @@ struct Contato {
     char end[100];
     char email[50];
     struct Contato* proximo;
-}
+};
 
 struct Contato* searchContato(struct Contato* head, const char* tel) {
     // Percorre toda a lista encadeada em busca do Node com o mesmo valor da variável "tel"
