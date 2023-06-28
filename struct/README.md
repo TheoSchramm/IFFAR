@@ -1,3 +1,6 @@
+# __ToDo List__
+- Não permitir telefones duplicados
+
 # __Clique [aqui](/struct/slide.pdf) para ver o Slide__ (ainda nao tem)
 
 # __Contato__
