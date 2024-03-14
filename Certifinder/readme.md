@@ -3,4 +3,6 @@
 
 Funções disponiveis:
 - request(eventID) -> Promise
-- 
+- find(key, name) -> Undefined
+- findAll(name) -> Undefined
+- downloadJson(exportObj, exportName) -> Undefined
