@@ -10,13 +10,20 @@ function cleanse(str) {
         .trim()
 }
 
+// Extrai o código do certificado e retorna a url de download
+function downloadCert(str) {
+    const code = (str.split('/'))
+        .slice(-1)[0]
+    return `https://certificados.iffarroupilha.edu.br/certificados/emitir/${code}`
+}
+
 
 // Inicializa o dict GLOBAL
 function genDict() {
     const elem = document.getElementsByName('txtEvento')[0]
     const dict = {};
-    
-    let i = 0;
+
+    let i = 1;
     let opt = elem.options[i]
     while (typeof(opt) == 'object') {
         dict[opt.value] = opt.text.trim()
@@ -61,15 +68,22 @@ async function find(key, name) {
         const parser = new DOMParser();
 
         const doc = parser.parseFromString(text, "text/html")
-        for (const td of doc.getElementsByTagName("td")) {
-            if (cleanse(td.innerText)
-                .includes(cleanse(name))) {
-                console.log(`Certificado de "${td.innerText}" encontrado em "${dict[key]}" (Cód: ${key})`);
+        for (const rows of doc.getElementById("data_table")
+                .rows) {
+            if (rows.id) {
+                let certUser = rows.cells[0].innerText
+                if (cleanse(certUser)
+                    .includes(cleanse(name))) {
+                    let cert = rows.cells[1].innerText
+                    let href = rows.cells[2].querySelector('a')
+                        .getAttribute('href')
+                    console.log(`=====[ ${cert} ]=====\nNome: ${certUser} \nDownload: ${downloadCert(href)}`)
+
+                }
             }
         }
-    }
-    catch (e) {
-        console.error(`Erro ao procurar certificado "${dict[key]}" | ${e}`);
+    } catch (e) {
+        console.error(`>> Erro ao procurar certificado "${dict[key]}" | ${e}`);
     }
 }
 
@@ -77,14 +91,14 @@ async function find(key, name) {
 // Procura pelo nome em todos os eventos
 async function findAll(name) {
     const allPromisses = []
-    for (const [key, value] of Object.entries(dict)) {
-        allPromisses.push(find(key, name))
-    }
     try {
+        for (const [key, value] of Object.entries(dict)) {
+            allPromisses.push(find(key, name))
+        }
         await Promise.all(allPromisses)
-        console.log("Todos certificados vasculhados.")
+        console.log(">> Todos certificados vasculhados.")
     } catch (e) {
-        console.error(`Erro ao procurar certificado "${value}" | ${e}`);
+        console.error(`>> Erro ao procurar certificado "${value}" | ${e}`);
     }
 }
 
