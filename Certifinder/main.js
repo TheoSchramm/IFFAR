@@ -14,7 +14,7 @@ function cleanse(str) {
 function downloadCert(str) {
     const code = (str.split('/'))
         .slice(-1)[0]
-    return `https://certificados.iffarroupilha.edu.br/certificados/emitir/${code}`
+    return `https://certificados.iffarroupilha.edu.br/emitir/${code}`
 }
 
 
@@ -88,6 +88,8 @@ async function find(key, name) {
 }
 
 
+
+
 // Procura pelo nome em todos os eventos
 async function findAll(name) {
     const allPromisses = []
@@ -110,7 +112,7 @@ function downloadJSON(exportObj, exportName) {
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", dataStr);
     downloadAnchorNode.setAttribute("download", exportName + ".json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox
+    document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
 };
