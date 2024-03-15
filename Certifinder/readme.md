@@ -3,7 +3,7 @@
 # ⚠️ Atenção! Deve-se estar [nesta página](https://certificados.iffarroupilha.edu.br/certificados/listaPublica) antes de injetar o código via console
 
 # 🤔 Como utilizar
-- Copiar [este código](/Certifinder/main.js)
+- Copiar [este código](https://raw.githubusercontent.com/TheoSchramm/IFFAR/main/Certifinder/main.js)
 - Acessar o [buscador de eventos](https://certificados.iffarroupilha.edu.br/certificados/listaPublica)
 - Abrir as ferramentas de desenvolvedor e colar o código no console
 - Basta digitar searchAll(*nome_da_pessoa*) para iniciar a consulta
