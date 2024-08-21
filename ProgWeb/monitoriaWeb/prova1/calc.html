@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+
+<style>
+    body{
+        text-align : center;
+    }
+        
+</style>
+
+<script>
+    
+    function calc(){
+        var x, y, operacao   
+        x = parseFloat(document.getElementById("x").value)
+        y = parseFloat(document.getElementById("y").value)
+
+        operacao = document.getElementById('operacao').value
+        
+        if (operacao == "+"){ document.getElementById("resultado").innerHTML = "Resultado da soma:"+" "+(x+y) }
+        else if (operacao == "-"){ document.getElementById("resultado").innerHTML = "Resultado da subtração:"+" "+(x-y) }
+        else if (operacao == "*"){ document.getElementById("resultado").innerHTML = "Resultado da multiplicação:"+" "+(x*y) }
+        else if (operacao == "/"){ document.getElementById("resultado").innerHTML = "Resultado da divisão:"+" "+(x/y) }
+        else { alert("Insira dados válidos!") }
+    }
+
+</script>
+
+
+<body>
+
+    <h1>Calculadora</h1> <br>
+    
+    <a href="home.html"> Voltar ao menu principal </a>
+    <br>
+    <br>
+    
+    Digite um valor:
+    <input type="text" id="x"> </input>
+    <br>
+    <br>
+    
+    Digite a operação desejada:
+    <input type="text" id="operacao"> </input>
+    <br>
+    <br>
+    
+    Digite o segundo valor:
+    <input type="text" id="y"> </input>
+    <br>
+    <br>
+    
+    <button onclick="calc()" > Calcular </button>
+    
+    <p id="resultado"></p>
+
+</body>
+</html>
