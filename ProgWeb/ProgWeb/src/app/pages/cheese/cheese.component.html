@@ -1,0 +1,10 @@
+<div class="wrapper">
+
+
+<form class="cardboard" [formGroup]="form">
+    <app-input label="Nome" [control]="form.controls['name']" />
+    <app-input label="Descrição" [control]="form.controls['description']" />
+    <app-input label="Maturação" type="number" [control]="form.controls['age']" />
+    <app-button [loading]="cheeseService.getLoading" label="Salvar" (click)="save()" />
+</form>
+</div>
