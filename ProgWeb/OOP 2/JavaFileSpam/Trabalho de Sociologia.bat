@@ -1,1 +1,0 @@
-java "D:\Main.java"
