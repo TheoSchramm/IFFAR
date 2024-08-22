@@ -1,0 +1,64 @@
+.wrapper {
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: top;
+}
+
+.cardboard {
+    background-color: #eee;
+    width: 50%;
+    padding: 1.5em;
+    border-radius: 10px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media (max-width: 600px) {
+        width: 90%;
+    }
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+
+section {
+    display: table;
+  }
+  
+  .example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+  }
+  
+  .example-button-row {
+    display: table-cell;
+    max-width: 600px;
+  }
+  
+  .example-button-row .mat-mdc-button-base {
+    margin: 8px 8px 8px 0;
+  }
+  
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }

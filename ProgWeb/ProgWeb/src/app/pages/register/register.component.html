@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <div class="cardboard">
+        <form [formGroup]="form">
+            <app-input label="Nome" placeholder="Alfredo Lingguini" [control]="form.controls['name']" />
+            <app-input label="E-mail" placeholder="alfredo.lingguini@gusteau.fr" [control]="form.controls['email']" />
+            <app-input label="Senha" type="password" [control]="form.controls['pwd']" />
+            <app-input label="Conf. Senha" type="password" [control]="form.controls['_pwd']" />
+
+            <app-button expanded="false" [loading]="login.getLoading" icon="login" label="Cadastrar"
+                (onClick)="register()" />
+        </form>
+        <div class="bottom">
+            <a class="left" href="/login" mat-button>
+                <mat-icon>arrow_back_ios</mat-icon>
+                Voltar</a>
+        </div>
+    </div>
+</div>
