@@ -1,0 +1,44 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+ProgWeb/dist
+ProgWeb/tmp
+ProgWeb/out-tsc
+ProgWeb/bazel-out
+
+# Node
+ProgWeb/node_modules
+ProgWeb/npm-debug.log
+ProgWeb/yarn-error.log
+
+ProgWeb# IDEs and editors
+ProgWeb/.idea/
+ProgWeb/.project
+ProgWeb/.classpath
+ProgWeb/.c9/
+ProgWeb/.launch
+ProgWeb/.settings/
+ProgWeb/.sublime-workspace
+
+# Visual Studio Code
+ProgWeb/.vscode/*
+ProgWeb/.vscode/settings.json
+ProgWeb/.vscode/tasks.json
+ProgWeb/.vscode/launch.json
+ProgWeb/.vscode/extensions.json
+ProgWeb/.history/*
+
+# Miscellaneous
+ProgWeb/.angular/cache
+ProgWeb/.sass-cache/
+ProgWeb/connect.lock
+ProgWeb/coverage
+ProgWeb/libpeerconnection.log
+ProgWeb/testem.log
+ProgWeb/typings
+
+
+# System files
+ProgWeb/.DS_Store
+ProgWeb/Thumbs.db
+ProgWeb/src/environments/*
