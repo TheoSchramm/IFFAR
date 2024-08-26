@@ -1,0 +1,14 @@
+<div class="wrapper">
+    <div class="cardboard">
+        <form [formGroup]="form">
+            <app-input label="E-mail" [control]="form.controls['email']" />
+            <app-button label="Recuperar conta" [loading]="login.getLoading" icon="email" (onClick)="recover()"></app-button>
+        </form>
+        <div class="bottom">
+            <a class="left" href="/login" mat-button>
+                <mat-icon>arrow_back_ios</mat-icon>
+                Voltar</a>
+                <br><br>
+        </div>
+    </div>
+</div>
