@@ -1,3 +1,5 @@
+# ⚠️ A aplicação foi homologada em dispositivos Android, tanto físicos quanto emulados, e também através de navegadores desktop
+
 # appfirebase
 
 A new Flutter project.
